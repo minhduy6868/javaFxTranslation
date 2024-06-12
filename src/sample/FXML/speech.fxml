@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:controller="sample.Controll.speechController" fx:id="pan_user" prefHeight="444.0" prefWidth="655.0" stylesheets="@../AppStyle.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextArea fx:id="ta_speak" layoutX="234.0" layoutY="209.0" opacity="0.8" prefHeight="159.0" prefWidth="362.0" wrapText="true" />
+      <Label alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="192.0" layoutY="84.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="68.0" prefWidth="198.0" text="Neque porro quisquam est &#10;qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..." textAlignment="JUSTIFY" textFill="#bfbfbf" wrapText="true" />
+      <Separator layoutX="157.0" layoutY="91.0" opacity="0.56" orientation="VERTICAL" prefHeight="52.0" prefWidth="9.0" />
+      <Label fx:id="lab_translate" layoutX="58.0" layoutY="209.0" opacity="0.75" text="Translate to:" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Button id="class" fx:id="btn_clear" alignment="CENTER" layoutX="420.0" layoutY="389.0" mnemonicParsing="false" onMouseClicked="#ClearText" opacity="0.7" prefHeight="30.0" prefWidth="75.0" stylesheets="@../AppStyle.css" text="CLEAR" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true" />
+      <Label fx:id="lab_enter_text" alignment="BOTTOM_LEFT" layoutX="241.0" layoutY="184.0" prefHeight="18.0" prefWidth="198.0" text="Enter or paste the text ..." textFill="WHITE" />
+      <Separator layoutX="239.0" layoutY="200.0" opacity="0.54" prefHeight="10.0" prefWidth="173.0" />
+      <Button fx:id="btn_speak" alignment="CENTER" layoutX="520.0" layoutY="389.0" mnemonicParsing="false" onMouseClicked="#Speak" opacity="0.7" prefHeight="30.0" prefWidth="75.0" text="SPEAK" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true" />
+      <ComboBox fx:id="cb_languages" layoutX="58.0" layoutY="248.0" onAction="#comboAction" opacity="0.87" prefWidth="150.0" promptText="CRO" />
+      <ImageView fitHeight="84.0" fitWidth="85.0" layoutX="77.0" layoutY="76.0" opacity="0.54" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../WindowsIcons-master/WindowsPhone/dark/appbar.user.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="user" alignment="CENTER" layoutX="65.0" layoutY="134.0" opacity="0.7" prefHeight="34.0" prefWidth="107.0" text="USER" textFill="WHITE" />
+      <Label fx:id="lab_main" alignment="CENTER" layoutX="188.0" layoutY="23.0" prefHeight="42.0" prefWidth="274.0" text="TEXT TO SPEECH" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

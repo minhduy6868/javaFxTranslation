@@ -1,0 +1,23 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Java_STP_Projekt">
+    <output-path>$PROJECT_DIR$/out/artifacts/Java_STP_Projekt</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="sample.Main" />
+        <option name="description" value="" />
+        <option name="height" value="444" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="Text to speech" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+        <option name="width" value="771" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Java_STP_Projekt.jar">
+        <element id="module-output" name="Java_STP_Projekt" />
+        <element id="library" level="project" name="java-flac-encoder-0.3.8" />
+      </element>
+    </root>
+  </artifact>
+</component>

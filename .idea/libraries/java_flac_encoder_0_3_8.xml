@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="java-flac-encoder-0.3.8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/java-flac-encoder-0.3.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/java-google-speech-api-V2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jfoenix-9.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jl1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
