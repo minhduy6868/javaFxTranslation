@@ -44,6 +44,6 @@ public class RegisterController implements Initializable {
     }
 
     private void changeToLoginScene(ActionEvent actionEvent) {
-        DB_Controller.changeScene(actionEvent, "login.fxml", "Login", null, null);
+        DB_Controller.changeScene(actionEvent, "/sample/FXML/login.fxml", "Login", null, null, true);
     }
 }

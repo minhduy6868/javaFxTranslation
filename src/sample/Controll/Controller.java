@@ -3,6 +3,7 @@ package sample.Controll;
 import com.darkprograms.speech.synthesiser.SynthesiserV2;
 import com.darkprograms.speech.translator.GoogleTranslate;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -23,6 +24,7 @@ public class Controller implements Initializable {
     public ImageView btn_settings;
     public AnchorPane pan_user;
     public ImageView btn_user;
+    public ImageView btn_logout;
     public ImageView btn_power;
     public AnchorPane pan_settings;
     public ProgressBar pb_volume;
@@ -34,6 +36,7 @@ public class Controller implements Initializable {
     public ProgressBar pb_pitch;
     public ComboBox<String> cb_languages;
     public Label user;
+    public Label email;
     public Label lab_volume;
     public Label lab_settings;
     public Label lab_speed;
@@ -59,6 +62,12 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initApp();
         //showSplashScreen();
+//        btn_logout.setOnAction(new EventHandler<ActionEvent>(){
+//            @Override
+//            public void handle(ActionEvent event) {
+//                DB_Controller.changeScene0(event, "/sample/FXML/login.fxml", "Login", true);
+//            }
+//        });
     }
 
     private void showSplashScreen() {
@@ -89,16 +98,18 @@ public class Controller implements Initializable {
         pan_topbar.setVisible(false);
         lab_internet.setText("Application requires an internet connection. Check your connection, then try again.");
         user.setText(System.getProperty("user.name"));
+        //email.setText(username);
         synthesizer.setSpeed(pb_speed.getProgress() * 10f);
         synthesizer.setPitch(pb_pitch.getProgress() * 10f);
 
         cb_languages.getItems().addAll(
-                "CRO",
-                "CZE",
-                "ENG",
-                "ESP",
-                "FRA",
-                "VIE"
+                "VIETNAMESE",
+                "CROATIAN",
+                "ENGLISH",
+                "SPANISH",
+                "FRENCH",
+                "CZECH"
+
         );
 
         checkConnectionToInternet();
@@ -144,23 +155,24 @@ public class Controller implements Initializable {
     }
 
     private String getLanguageCode(String language) {
-        switch (language) {
-            case "CRO":
-                return "hr";
-            case "ENG":
-                return "en";
-            case "ESP":
-                return "es";
-            case "FRA":
-                return "fr";
-            case "CZE":
-                return "cs";
-            case "VIE":
+        switch (language.toUpperCase()) {
+            case "VIETNAMESE":
                 return "vi";
+            case "CROATIAN":
+                return "hr";
+            case "ENGLISH":
+                return "en";
+            case "SPANISH":
+                return "es";
+            case "FRENCH":
+                return "fr";
+            case "CZECH":
+                return "cs";
             default:
                 return null;
         }
     }
+
 
     public void showSettings(MouseEvent event) {
         pan_settings.setVisible(!pan_settings.isVisible());
@@ -227,6 +239,29 @@ public class Controller implements Initializable {
         pb_speed.setProgress(.5f);
         pb_pitch.setProgress(.5f);
     }
+    public void setupLogoutButton(MouseEvent event) {
+        System.out.println("Logout button pressed.");  // Debugging line
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Do you want to log out of this account?");
+
+        ButtonType buttonTypeYes = new ButtonType("Yes");
+        ButtonType buttonTypeNo = new ButtonType("No");
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == buttonTypeYes) {
+                System.out.println("User confirmed logout.");  // Debugging line
+                DB_Controller.changeScene1(event, "/sample/FXML/login.fxml", "Login", true);
+            } else {
+                System.out.println("User canceled logout.");  // Debugging line
+            }
+        });
+    }
+
+
 
     public void ClearText() {
         ta_speak.setText("");

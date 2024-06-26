@@ -38,13 +38,13 @@ public class LoginController implements Initializable {
         btn_register_next.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DB_Controller.changeScene(actionEvent, "register.fxml", "Register", null, null);
+                DB_Controller.changeScene(actionEvent, "/sample/FXML/register.fxml", "Register", null, null, true);
             }
         });
         btn_report.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DB_Controller.changeScene(actionEvent, "reportError.fxml", "Report", null, null);
+                DB_Controller.changeScene0(actionEvent, "/sample/FXML/reportError.fxml", "Report", true);
             }
         });
     }

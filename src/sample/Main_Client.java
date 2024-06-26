@@ -8,9 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public class Main extends Application {
+public class Main_Client extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -22,7 +21,7 @@ public class Main extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXML/login.fxml"));
-        stage.initStyle(StageStyle.TRANSPARENT);
+        //stage.initStyle(StageStyle.TRANSPARENT);
 
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -42,7 +41,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
-        scene.getStylesheets().add("sample/AppStyle.css");
+        //scene.getStylesheets().add("sample/AppStyle.css");
         stage.setScene(scene);
         stage.show();
 

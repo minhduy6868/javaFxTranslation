@@ -1,4 +1,3 @@
-
 package sample.Controll;
 
 import javafx.event.ActionEvent;
@@ -7,158 +6,165 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import java.io.IOException;
-import java.sql.*;
-
+import java.io.*;
+import java.net.Socket;
 
 public class DB_Controller {
-    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, String password) {
+    private static final String SERVER_ADDRESS = "localhost";
+    private static final int SERVER_PORT = 12345;
+
+    public static void changeScene0(ActionEvent event, String fxmlFile, String title, boolean isTransparent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DB_Controller.class.getResource(fxmlFile));
+            Parent root = loader.load();
+
+            if (root == null) {
+                throw new IOException("The root loaded from FXML is null.");
+            }
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle(title);
+            stage.setScene(new Scene(root));
+
+            if (isTransparent) {
+                stage.initStyle(StageStyle.TRANSPARENT);
+                root.setStyle("-fx-background-color: transparent;");
+            }
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error loading scene: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    public static void changeScene1(MouseEvent event, String fxmlFile, String title, boolean isTransparent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DB_Controller.class.getResource(fxmlFile));
+            Parent root = loader.load();
+
+            if (root == null) {
+                throw new IOException("The root loaded from FXML is null.");
+            }
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle(title);
+            stage.setScene(new Scene(root));
+
+            if (isTransparent) {
+                stage.initStyle(StageStyle.TRANSPARENT);
+                root.setStyle("-fx-background-color: transparent;");
+            }
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error loading scene: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, String password, boolean isTransparent) {
         Parent root = null;
 
-        if(username != null && password != null) {
-            try{
+        if (username != null && password != null) {
+            try {
                 FXMLLoader loader = new FXMLLoader(DB_Controller.class.getResource(fxmlFile));
                 root = loader.load();
-                HomeController homeController = loader.getController();
-                homeController.setUserInfor(username, password);
+
+                if (root == null) {
+                    throw new IOException("The root loaded from FXML is null.");
+                }
+
+                // HomeController homeController = loader.getController();
+                // homeController.setUserInfor(username, password);
             } catch (IOException e) {
                 e.printStackTrace();
+                showAlert("Error loading scene: " + e.getMessage(), Alert.AlertType.ERROR);
+                return;
             }
-        }else {
+        } else {
             try {
                 root = FXMLLoader.load(DB_Controller.class.getResource(fxmlFile));
+
+                if (root == null) {
+                    throw new IOException("The root loaded from FXML is null.");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
+                showAlert("Error loading scene: " + e.getMessage(), Alert.AlertType.ERROR);
+                return;
             }
         }
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle(title);
         stage.setScene(new Scene(root));
-        stage.show();
 
+        if (isTransparent) {
+            stage.initStyle(StageStyle.TRANSPARENT);
+            root.setStyle("-fx-background-color: transparent;");
+        }
+
+        stage.show();
     }
 
-
     public static void registerUser(ActionEvent actionEvent, String username, String password) {
-        Connection connection = null;
-        PreparedStatement psInsert = null;
-        PreparedStatement checkUser = null;
-        ResultSet resultSet = null;
-        try{
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/browser_account", "root","" );
-            System.out.println(connection);
-            checkUser = connection.prepareStatement("SELECT * FROM browser_account WHERE username = ?");
-            checkUser.setString(1, username);
-            resultSet = checkUser.executeQuery();
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             OutputStream output = socket.getOutputStream();
+             InputStream input = socket.getInputStream();
+             ObjectOutputStream objectOutput = new ObjectOutputStream(output);
+             ObjectInputStream objectInput = new ObjectInputStream(input)) {
 
-            String EMAIL_PATTERN =
-                    "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-            String PASSWORD_PATTERN =
-                    "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+            objectOutput.writeObject("register");
+            objectOutput.writeObject(username);
+            objectOutput.writeObject(password);
 
-            if(username.equals("") || password.equals("")) {
-                showAlert("Vui lòng nhập đầy đủ các trường", Alert.AlertType.ERROR);
-            } else if(!username.matches(EMAIL_PATTERN)){
-                showAlert("Email không đúng định dạng", Alert.AlertType.ERROR);
-            } else if(!password.matches(PASSWORD_PATTERN)) {
-                showAlert("Mật khẩu quá yếu, thử lại", Alert.AlertType.ERROR);
-            } else if (resultSet.next()) {
-                showAlert("Người dùng đã tồn tại", Alert.AlertType.ERROR);
+            boolean success = (boolean) objectInput.readObject();
+            if (success) {
+                changeScene(actionEvent, "/sample/FXML/sample.fxml", "Welcome", username, password, true);
             } else {
-                String hashedPassword = PasswordHashing.sha1(password);
-                psInsert = connection.prepareStatement("INSERT INTO browser_account (username, password) VALUES (?, ?)");
-                psInsert.setString(1, username);
-                psInsert.setString(2, hashedPassword);
-                psInsert.executeUpdate();
-                System.out.println("Thành công nhập vào cơ sở dữ liệu");
-
-                changeScene(actionEvent, "home.fxml", "Welcome", username, password);
+                showAlert("Registration failed", Alert.AlertType.ERROR);
             }
 
-        } catch (SQLException e) {
+        } catch (IOException e) {
+            showAlert("Could not connect to server. Please check your network connection or try again later.", Alert.AlertType.ERROR);
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            if(resultSet != null) {
-                try{
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(psInsert != null) {
-                try{
-                    psInsert.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(checkUser != null) {
-                try{
-                    checkUser.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(connection != null) {
-                try{
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
-    // Phương thức hiển thị thông báo
+    public static void logIn(ActionEvent actionEvent, String username, String password) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             OutputStream output = socket.getOutputStream();
+             InputStream input = socket.getInputStream();
+             ObjectOutputStream objectOutput = new ObjectOutputStream(output);
+             ObjectInputStream objectInput = new ObjectInputStream(input)) {
+
+            objectOutput.writeObject("login");
+            objectOutput.writeObject(username);
+            objectOutput.writeObject(password);
+
+            boolean success = (boolean) objectInput.readObject();
+            if (success) {
+                changeScene(actionEvent, "/sample/FXML/sample.fxml", "Home", username, password, true);
+            } else {
+                showAlert("Login failed", Alert.AlertType.ERROR);
+            }
+
+        } catch (IOException e) {
+            showAlert("Could not connect to server. Please check your network connection or try again later.", Alert.AlertType.ERROR);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to display alert
     private static void showAlert(String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setContentText(message);
         alert.show();
-    }
-
-    public static void logIn(ActionEvent actionEvent, String username, String password) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/browser_account", "root","" );
-            System.out.println(connection);
-            preparedStatement = connection.prepareStatement("SELECT password FROM browser_account WHERE username = ?");
-            preparedStatement.setString(1, username);
-            resultSet = preparedStatement.executeQuery();
-
-            if(!resultSet.isBeforeFirst()) {
-                System.out.println("Người dùng không tồn tại");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Ban không xài đợc tên tài khoản này, OK?");
-                alert.show();
-            } else {
-                while (resultSet.next()) {
-                    String getPass = resultSet.getString("password");
-                    String hashedInputPass = PasswordHashing.sha1(password); // Mã hóa mật khẩu người dùng nhập vào
-                    if(getPass.equals(hashedInputPass)) {
-                        changeScene(actionEvent, "home.fxml", "Home", username, password);
-                    } else {
-                        System.out.println("pass sai");
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setContentText("Nhập cái pass cũng sai, tương lai mày làm được gì?");
-                        alert.show();
-                    }
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    private static final String URL = "jdbc:mysql://localhost:3306/browser_account";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
-
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }

@@ -30,8 +30,8 @@ public class SpeechController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cb_languages.getItems().addAll("CRO", "ENG", "ESP", "FRA", "CZE", "VIE");
-        cb_languages.setValue("ENG");
+        cb_languages.getItems().addAll("VIETNAMESE", "CROATIAN", "ENGLISH", "SPANISH", "FRENCH", "CZECH");
+        cb_languages.setValue("VIE");
     }
 
     public void comboAction(ActionEvent event) {
@@ -59,18 +59,18 @@ public class SpeechController implements Initializable {
 
     private String getLanguageCode(String language) {
         switch (language) {
-            case "CRO":
-                return "hr";
-            case "ENG":
-                return "en";
-            case "ESP":
-                return "es";
-            case "FRA":
-                return "fr";
-            case "CZE":
-                return "cs";
-            case "VIE":
+            case "VIETNAMESE":
                 return "vi";
+            case "CROATIAN":
+                return "hr";
+            case "ENGLISH":
+                return "en";
+            case "SPANISH":
+                return "es";
+            case "FRENCH":
+                return "fr";
+            case "CZECH":
+                return "cs";
             default:
                 return null;
         }

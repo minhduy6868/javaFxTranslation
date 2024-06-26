@@ -9,28 +9,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="sample.Controll.settingsController" fx:id="pan_settings" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="655.0" stylesheets="@../AppStyle.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="pan_settings" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="707.0" stylesheets="@../AppStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controll.settingsController">
    <children>
-      <Separator layoutX="62.0" layoutY="272.0" opacity="0.45" prefHeight="34.0" prefWidth="532.0" />
+      <Separator layoutX="44.0" layoutY="324.0" opacity="0.45" prefHeight="34.0" prefWidth="620.0" />
       <ProgressBar fx:id="pb_volume" layoutX="67.0" layoutY="261.0" minHeight="-Infinity" onMouseClicked="#Sliders" onMouseDragged="#Sliders" prefHeight="10.0" prefWidth="210.0" progress="0.42" visible="false" />
       <Label fx:id="lab_volume" alignment="CENTER" contentDisplay="CENTER" layoutX="113.0" layoutY="214.0" prefHeight="34.0" prefWidth="118.0" text="VOICE VOLUME" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" visible="false" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lab_settings" alignment="CENTER" layoutX="252.0" layoutY="21.0" text="SETTINGS" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+      <Label fx:id="lab_settings" alignment="CENTER" layoutX="278.0" layoutY="27.0" text="SETTINGS" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
          <font>
             <Font size="35.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="pb_speed" layoutX="377.0" layoutY="261.0" minHeight="-Infinity" onMouseClicked="#Sliders" onMouseDragged="#Sliders" prefHeight="10.0" prefWidth="210.0" progress="0.42" />
-      <Label fx:id="lab_speed" alignment="CENTER" contentDisplay="CENTER" layoutX="423.0" layoutY="214.0" prefHeight="34.0" prefWidth="118.0" text="VOICE SPEED" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <ProgressBar fx:id="pb_speed" layoutX="405.0" layoutY="295.0" minHeight="-Infinity" onMouseClicked="#Sliders" onMouseDragged="#Sliders" prefHeight="10.0" prefWidth="210.0" progress="0.42" />
+      <Label fx:id="lab_speed" alignment="CENTER" contentDisplay="CENTER" layoutX="451.0" layoutY="248.0" prefHeight="34.0" prefWidth="118.0" text="VOICE SPEED" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="pb_pitch" layoutX="64.0" layoutY="261.0" minHeight="-Infinity" onMouseClicked="#Sliders" onMouseDragged="#Sliders" prefHeight="10.0" prefWidth="210.0" progress="0.42" />
-      <Label fx:id="lab_pitch" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="214.0" prefHeight="34.0" prefWidth="118.0" text="PITCH" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <ProgressBar fx:id="pb_pitch" layoutX="92.0" layoutY="295.0" minHeight="-Infinity" onMouseClicked="#Sliders" onMouseDragged="#Sliders" prefHeight="10.0" prefWidth="210.0" progress="0.42" />
+      <Label fx:id="lab_pitch" alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="248.0" prefHeight="34.0" prefWidth="118.0" text="PITCH" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
@@ -41,12 +41,15 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Separator layoutX="62.0" layoutY="307.0" opacity="0.45" prefHeight="34.0" prefWidth="532.0" />
-      <Button fx:id="btn_apply" alignment="CENTER" contentDisplay="CENTER" layoutX="520.0" layoutY="389.0" mnemonicParsing="false" onMouseClicked="#ApplySettings" opacity="0.7" prefHeight="32.0" prefWidth="75.0" text="APPLY" />
-      <Button fx:id="btn_reset" alignment="CENTER" contentDisplay="CENTER" layoutX="420.0" layoutY="389.0" mnemonicParsing="false" onMouseClicked="#ResetSettings" opacity="0.7" prefHeight="32.0" prefWidth="75.0" text="RESET" />
-      <Label alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="185.0" layoutY="95.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="68.0" prefWidth="198.0" text="Neque porro quisquam est &#10;qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..." textAlignment="JUSTIFY" textFill="#bfbfbf" wrapText="true" />
-      <Separator layoutX="165.0" layoutY="95.0" opacity="0.56" orientation="VERTICAL" prefHeight="52.0" prefWidth="9.0" />
-      <ImageView fitHeight="84.0" fitWidth="85.0" layoutX="81.0" layoutY="79.0" opacity="0.54" pickOnBounds="true" preserveRatio="true">
+      <Separator layoutX="44.0" layoutY="359.0" opacity="0.45" prefHeight="34.0" prefWidth="620.0" />
+      <Button fx:id="btn_apply" alignment="CENTER" contentDisplay="CENTER" layoutX="573.0" layoutY="421.0" mnemonicParsing="false" onMouseClicked="#ApplySettings" opacity="0.7" prefHeight="32.0" prefWidth="75.0" text="APPLY" />
+      <Button fx:id="btn_reset" alignment="CENTER" contentDisplay="CENTER" layoutX="480.0" layoutY="421.0" mnemonicParsing="false" onMouseClicked="#ResetSettings" opacity="0.7" prefHeight="32.0" prefWidth="75.0" text="RESET" />
+      <Label alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="255.0" layoutY="163.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="52.0" prefWidth="302.0" text="The application helps you practice different languages ​​in a simple way" textAlignment="JUSTIFY" textFill="#bfbfbf" wrapText="true">
+         <font>
+            <Font name="Book Antiqua Bold Italic" size="18.0" />
+         </font></Label>
+      <Separator layoutX="234.0" layoutY="163.0" opacity="0.56" orientation="VERTICAL" prefHeight="52.0" prefWidth="9.0" />
+      <ImageView fitHeight="84.0" fitWidth="85.0" layoutX="150.0" layoutY="147.0" opacity="0.54" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../WindowsIcons-master/WindowsPhone/dark/appbar.user.png" />
          </image>
